@@ -16,6 +16,8 @@
 		482663B7208285BF006A740D /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663B6208285BF006A740D /* MessagesTableViewController.swift */; };
 		482663B9208285E7006A740D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663B8208285E7006A740D /* Message.swift */; };
 		482663BD20828662006A740D /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663BC20828662006A740D /* MessageController.swift */; };
+		48B4D14B2086701B00328448 /* MessageCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48B4D14A2086701B00328448 /* MessageCustomCell.xib */; };
+		48B4D14D2086732600328448 /* MessageCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4D14C2086732600328448 /* MessageCustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		482663B6208285BF006A740D /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		482663B8208285E7006A740D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		482663BC20828662006A740D /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
+		48B4D14A2086701B00328448 /* MessageCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCustomCell.xib; sourceTree = "<group>"; };
+		48B4D14C2086732600328448 /* MessageCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 				4826638F208280A6006A740D /* Assets.xcassets */,
 				48266391208280A6006A740D /* LaunchScreen.storyboard */,
 				48266394208280A6006A740D /* Info.plist */,
+				48B4D14A2086701B00328448 /* MessageCustomCell.xib */,
+				48B4D14C2086732600328448 /* MessageCustomCell.swift */,
 			);
 			path = ChitChat;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 			files = (
 				48266393208280A6006A740D /* LaunchScreen.storyboard in Resources */,
 				48266390208280A6006A740D /* Assets.xcassets in Resources */,
+				48B4D14B2086701B00328448 /* MessageCustomCell.xib in Resources */,
 				4826638E208280A6006A740D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				482663B9208285E7006A740D /* Message.swift in Sources */,
+				48B4D14D2086732600328448 /* MessageCustomCell.swift in Sources */,
 				482663B7208285BF006A740D /* MessagesTableViewController.swift in Sources */,
 				48266389208280A6006A740D /* AppDelegate.swift in Sources */,
 				482663BD20828662006A740D /* MessageController.swift in Sources */,

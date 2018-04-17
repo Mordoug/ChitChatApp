@@ -17,16 +17,17 @@ class Messages{
         getMessages()
     }
     
-    func getMessages() {
+    func getMessages() -> () {
+       
         let urlString = "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu"
         guard let url = URL(string: urlString) else { return }
         print(url)
-        URLSession.shared.dataTask(with: url) { (data, resp, error) in
+        let task = URLSession.shared.dataTask(with: url) { (data, resp, error) in
             if error != nil {
                 print(error!.localizedDescription)
             }
-        guard let data = data else { return }
-               do {
+            guard let data = data else { return }
+            do {
                 let jsonDecoder = JSONDecoder()
                 let results = try jsonDecoder.decode(Response.self, from: data)
                 print(results.count)
@@ -40,7 +41,9 @@ class Messages{
             } catch {
                 print("caught: \(error)")
             }
-        }.resume()
+        }
+        task.resume()
+        return
     }
     
 }

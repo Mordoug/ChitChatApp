@@ -13,6 +13,9 @@ class MessagesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "MessageCustomCell")
+        tableView.rowHeight = CGFloat(130)
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(reload), for: UIControlEvents.valueChanged)
@@ -48,9 +51,9 @@ class MessagesTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellMessages", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCustomCell", for: indexPath) as! MessgeCustomCell
         let place = messagesClass.messages[indexPath.row]
-        cell.textLabel?.text = place.message
+        cell.MessageLabel.text = place.message
         return cell
     }
     
