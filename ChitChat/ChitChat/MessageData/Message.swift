@@ -51,7 +51,6 @@ class Message : Decodable {
 //    }
     
     required init(from decoder: Decoder) throws {
-        print("we made it")
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self._id = try container.decode(String.self, forKey: ._id)
         self.client = try container.decode(String.self, forKey: .client)
@@ -59,11 +58,9 @@ class Message : Decodable {
         self.dislikes = try container.decode(Int.self, forKey: .dislikes)
         self.ip = try container.decode(String.self, forKey: .ip)
         self.likes = try container.decode(Int.self, forKey: .likes)
-        do {self.loc = try container.decode([String].self, forKey: .loc)}
+        do {self.loc = try container.decode([String].self, forKey: .loc)}  //some messages do not have this so we need a default. 
                 catch{self.loc =  ["0","0"]}
-        
         self.message = try container.decode(String.self, forKey: .message)
-        //fatalError("init(from:) has not been implemented")
     }
     
     private enum CodingKeys: String, CodingKey {
