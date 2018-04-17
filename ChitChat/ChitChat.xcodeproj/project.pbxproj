@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		48266389208280A6006A740D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48266388208280A6006A740D /* AppDelegate.swift */; };
-		4826638B208280A6006A740D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4826638A208280A6006A740D /* ViewController.swift */; };
 		4826638E208280A6006A740D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4826638C208280A6006A740D /* Main.storyboard */; };
 		48266390208280A6006A740D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4826638F208280A6006A740D /* Assets.xcassets */; };
 		48266393208280A6006A740D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48266391208280A6006A740D /* LaunchScreen.storyboard */; };
 		4826639E208280A6006A740D /* ChitChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4826639D208280A6006A740D /* ChitChatTests.swift */; };
 		482663A9208280A7006A740D /* ChitChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663A8208280A7006A740D /* ChitChatUITests.swift */; };
+		482663B7208285BF006A740D /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663B6208285BF006A740D /* MessagesTableViewController.swift */; };
+		482663B9208285E7006A740D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663B8208285E7006A740D /* Message.swift */; };
+		482663BD20828662006A740D /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663BC20828662006A740D /* MessageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,6 @@
 /* Begin PBXFileReference section */
 		48266385208280A6006A740D /* ChitChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChitChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48266388208280A6006A740D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4826638A208280A6006A740D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4826638D208280A6006A740D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4826638F208280A6006A740D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48266392208280A6006A740D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +48,9 @@
 		482663A4208280A7006A740D /* ChitChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChitChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		482663A8208280A7006A740D /* ChitChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChitChatUITests.swift; sourceTree = "<group>"; };
 		482663AA208280A7006A740D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		482663B6208285BF006A740D /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		482663B8208285E7006A740D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		482663BC20828662006A740D /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +101,9 @@
 		48266387208280A6006A740D /* ChitChat */ = {
 			isa = PBXGroup;
 			children = (
+				482663BE2082866F006A740D /* MessageData */,
 				48266388208280A6006A740D /* AppDelegate.swift */,
-				4826638A208280A6006A740D /* ViewController.swift */,
+				482663B6208285BF006A740D /* MessagesTableViewController.swift */,
 				4826638C208280A6006A740D /* Main.storyboard */,
 				4826638F208280A6006A740D /* Assets.xcassets */,
 				48266391208280A6006A740D /* LaunchScreen.storyboard */,
@@ -123,6 +128,15 @@
 				482663AA208280A7006A740D /* Info.plist */,
 			);
 			path = ChitChatUITests;
+			sourceTree = "<group>";
+		};
+		482663BE2082866F006A740D /* MessageData */ = {
+			isa = PBXGroup;
+			children = (
+				482663B8208285E7006A740D /* Message.swift */,
+				482663BC20828662006A740D /* MessageController.swift */,
+			);
+			path = MessageData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +273,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4826638B208280A6006A740D /* ViewController.swift in Sources */,
+				482663B9208285E7006A740D /* Message.swift in Sources */,
+				482663B7208285BF006A740D /* MessagesTableViewController.swift in Sources */,
 				48266389208280A6006A740D /* AppDelegate.swift in Sources */,
+				482663BD20828662006A740D /* MessageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
