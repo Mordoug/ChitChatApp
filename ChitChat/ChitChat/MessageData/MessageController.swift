@@ -14,9 +14,9 @@ class Messages{
     var messages: [Message] = []
     
     init() {
-        getMessages();
+        getMessages()
     }
-
+    
     func getMessages() {
         let urlString = "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu"
         guard let url = URL(string: urlString) else { return }
@@ -29,9 +29,12 @@ class Messages{
                do {
                 let jsonDecoder = JSONDecoder()
                 let results = try jsonDecoder.decode(Response.self, from: data)
+                print(results.count)
                 for result in results.messages {
                     if let message = result as? Message {  //I know this always succedes, but it wont work without it?
+                        print(message)
                         self.messages.append(message)
+                        print(self.messages.count)
                     }
                 }
             } catch {
