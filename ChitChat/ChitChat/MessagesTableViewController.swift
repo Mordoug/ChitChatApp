@@ -9,7 +9,7 @@
 import UIKit
 
 class MessagesTableViewController: UITableViewController {
-    var messagesClass : Messages!
+    var messageController : MessageController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class MessagesTableViewController: UITableViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(reload), for: UIControlEvents.valueChanged)
         self.refreshControl = refreshControl
-        
+        reloadMessages()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -28,7 +28,25 @@ class MessagesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    func reloadMessages() {
+        messageController.getMessages { (error: Error?) in
+            if let error = error {
+                print(error)
+                
+                //TODO: Popup error
+                
+            }else {
+                
+                    self.reload()
+                }
+                
+            }
+            
+        
+    }
+    
     @objc func reload() {
+        
         tableView.reloadData()
         refreshControl?.endRefreshing()
     }
@@ -46,13 +64,13 @@ class MessagesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return messagesClass.messages.count
+        return messageController.messages.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCustomCell", for: indexPath) as! MessgeCustomCell
-        let place = messagesClass.messages[indexPath.row]
+        let place = messageController.messages[indexPath.row]
         cell.MessageLabel.text = place.message
         return cell
     }
