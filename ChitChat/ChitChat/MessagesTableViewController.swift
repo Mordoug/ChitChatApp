@@ -65,10 +65,14 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         cell.likeButton.setTitle("Likes: " + String(place.likes), for: .normal)
         if messageController.liked.contains(place._id){
             cell.likeButton.isEnabled = false
+        } else {
+            cell.likeButton.isEnabled = true
         }
         cell.dislikeButton.setTitle("Dislikes: " + String(place.dislikes), for: .normal)
          if messageController.disliked.contains(place._id){
             cell.dislikeButton.isEnabled = false
+         }else {
+            cell.dislikeButton.isEnabled = true
         }
         let lat = messageController.findLatitueByRow(index: indexPath.row)
         let long = messageController.findLongitudeByRow(index: indexPath.row)
