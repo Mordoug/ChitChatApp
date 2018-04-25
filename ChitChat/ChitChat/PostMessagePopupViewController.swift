@@ -10,6 +10,8 @@ import UIKit
 
 class PostMessagePopupViewController: UIViewController {
     var messageController : MessageController!
+
+    
     @IBAction func messageBox(_ sender: UITextField) {
         print(sender.text ?? "")
         messageController.postMessage(message: sender.text ?? "")

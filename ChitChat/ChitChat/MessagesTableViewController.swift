@@ -8,18 +8,35 @@
 
 import UIKit
 import MapKit
-class MessagesTableViewController: UITableViewController {
+class MessagesTableViewController: UITableViewController, CLLocationManagerDelegate {
     var messageController : MessageController!
-
-    @IBAction func postMessage(_ sender: UIBarButtonItem) {
-        
-        
+    let locationMgr = CLLocationManager()
+    
+    @IBAction func getLocation() {
+        let status  = CLLocationManager.authorizationStatus()
+        if status == .notDetermined {
+            locationMgr.requestWhenInUseAuthorization()
+            return
+        }
+        if status == .denied || status == .restricted {
+            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        locationMgr.delegate = self as CLLocationManagerDelegate
+        locationMgr.startUpdatingLocation()
     }
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "MessageCustomCell")
-        tableView.rowHeight = CGFloat(300)
+        tableView.rowHeight = CGFloat(130)
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(reloadMessages), for: UIControlEvents.valueChanged)
@@ -31,6 +48,9 @@ class MessagesTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    override func viewDidAppear(_ animated: Bool) {
+        reloadMessages()
+    }
     
     @objc func reloadMessages() {
         messageController.getMessages { (error: Error?) in
@@ -40,32 +60,21 @@ class MessagesTableViewController: UITableViewController {
                 //TODO: Popup error
             } else {
                 print("reload")
-                self.reload()
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             }
         }
     }
     
-    @objc func reload() {
-        tableView.reloadData()
-        refreshControl?.endRefreshing()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return messageController.messages.count
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCustomCell", for: indexPath) as! MessgeCustomCell
@@ -87,10 +96,8 @@ class MessagesTableViewController: UITableViewController {
                 cell.mapView.centerCoordinate = coord
             }
         }
-        
         return cell
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PostMessage" {
