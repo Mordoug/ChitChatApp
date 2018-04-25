@@ -49,7 +49,7 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     override func viewDidAppear(_ animated: Bool) {
-        reloadMessages()
+        //reloadMessages()
     }
     
     @objc func reloadMessages() {

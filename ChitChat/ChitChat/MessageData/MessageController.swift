@@ -44,7 +44,7 @@ class MessageController{
     }
     
     func postMessage(message: String) {
-        let urlString = String(format: "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu&message=" + message)
+        let urlString = "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu&message=" + message
         let escapedUrl = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
         guard let endpointUrl = URL(string: escapedUrl!) else { return }
         
@@ -92,6 +92,7 @@ class MessageController{
             do {
                 let jsonDecoder = JSONDecoder()
                 let result = try jsonDecoder.decode(Like.self, from: data)
+                
                 if result.message != "Success" {
                     print("Error Handle Here")
                 }

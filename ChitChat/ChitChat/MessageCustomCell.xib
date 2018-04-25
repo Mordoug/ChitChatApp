@@ -31,14 +31,16 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                         <state key="normal" title="Dislike"/>
+                        <connections>
+                            <action selector="dislikeMessage:" destination="5DS-AY-I5W" eventType="touchUpInside" id="Efa-6V-9Hc"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2O-Xz-mcj">
                         <rect key="frame" x="137" y="78" width="94" height="37"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Like"/>
                         <connections>
-                            <action selector="likeMessage:" destination="5DS-AY-I5W" eventType="touchUpInside" id="7gg-bJ-zDd"/>
-                            <action selector="likeMessageButton:" destination="5DS-AY-I5W" eventType="touchUpInside" id="r7t-aB-F6X"/>
+                            <action selector="likeMessage:" destination="5DS-AY-I5W" eventType="touchUpInside" id="OgH-CC-OCg"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TEMP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNN-pH-EHN">
@@ -51,10 +53,10 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="DislikeButton" destination="uti-KC-NqS" id="fVy-nM-T5M"/>
-                <outlet property="LikeButton" destination="O2O-Xz-mcj" id="mWl-eP-wGY"/>
                 <outlet property="MapView" destination="QXk-hk-8k6" id="pkV-tq-O3O"/>
                 <outlet property="MessageLabel" destination="qNN-pH-EHN" id="8Uv-qP-sRO"/>
+                <outlet property="dislikeButton" destination="uti-KC-NqS" id="ste-gZ-snL"/>
+                <outlet property="likeButton" destination="O2O-Xz-mcj" id="XHG-FZ-CxD"/>
             </connections>
             <point key="canvasLocation" x="-435.5" y="-14"/>
         </tableViewCell>

@@ -21,9 +21,12 @@ class MessgeCustomCell: UITableViewCell {
     @IBAction func likeMessage(_ sender: Any) {
         let messageID = messageController.findMessageIDByRow(index: self.tag)
         messageController.likeMessage(messageID: messageID)
-        
-        
     }
+    @IBAction func dislikeMessage(_ sender: Any) {
+        let messageID = messageController.findMessageIDByRow(index: self.tag)
+        messageController.dislikeMessage(messageID: messageID)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
