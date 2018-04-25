@@ -10,31 +10,7 @@ import UIKit
 import MapKit
 class MessagesTableViewController: UITableViewController, CLLocationManagerDelegate {
     var messageController : MessageController!
-    let locationMgr = CLLocationManager()
-    
-    @IBAction func getLocation() {
-        let status  = CLLocationManager.authorizationStatus()
-        if status == .notDetermined {
-            locationMgr.requestWhenInUseAuthorization()
-            return
-        }
-        if status == .denied || status == .restricted {
-            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        locationMgr.delegate = self as CLLocationManagerDelegate
-        locationMgr.startUpdatingLocation()
-    }
-   
-    func updateTableView() {
-        tableView.reloadData() // you do have an outlet of tableView I assume
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
@@ -52,7 +28,7 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     override func viewDidAppear(_ animated: Bool) {
-        //reloadMessages()
+        reloadMessages()
     }
     
     @objc func reloadMessages() {

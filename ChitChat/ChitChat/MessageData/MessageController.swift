@@ -14,8 +14,8 @@ class MessageController{
     var disliked: [String] = []
     
     func getMessages(callBack: @escaping (_ : Error?) -> () ) {
-        self.messages.removeAll()
-        self.messages = []
+        
+        //self.messages = []
         let urlString = "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu"
         guard let url = URL(string: urlString) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, resp, error) in
@@ -28,6 +28,7 @@ class MessageController{
                 let jsonDecoder = JSONDecoder()
                 let results = try jsonDecoder.decode(Response.self, from: data)
                 DispatchQueue.main.async {
+                    self.messages.removeAll()
                     for result in results.messages {
                         if let message = result as? Message {  //I know this always succedes, but it wont work without it
                             self.messages.append(message)
