@@ -10,6 +10,8 @@ import Foundation
 
 class MessageController{
     var messages: [Message] = []
+    var liked: [String] = []
+    var disliked: [String] = []
     
     func getMessages(callBack: @escaping (_ : Error?) -> () ) {
         self.messages.removeAll()
@@ -113,5 +115,33 @@ class MessageController{
     
     func findLongitudeByRow(index: Int) -> String {
         return messages[index].loc[0]
+    }
+    func findLikesByRow(index: Int) -> Int {
+        return messages[index].likes
+    }
+    func findDislikesByRow(index: Int) -> Int {
+        return messages[index].dislikes
+    }
+    
+    
+    func syncData() {
+        var encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: liked)
+        UserDefaults.standard.set(encodedData, forKey: "liked")
+        UserDefaults.standard.synchronize()
+        
+        encodedData = NSKeyedArchiver.archivedData(withRootObject: disliked)
+        UserDefaults.standard.set(encodedData, forKey: "disliked")
+        UserDefaults.standard.synchronize()
+    }
+    func loadUserData() {
+        if UserDefaults.standard.object(forKey: "liked") != nil {
+            let decoded = UserDefaults.standard.object(forKey: "liked") as! Data
+            liked = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [String]
+        }
+        
+        if UserDefaults.standard.object(forKey: "disliked") != nil {
+            let decoded = UserDefaults.standard.object(forKey: "disliked") as! Data
+            disliked = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [String]
+        }
     }
 }

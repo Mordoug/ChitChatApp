@@ -1,4 +1,4 @@
-//
+
 //  MessagesTableViewController.swift
 //  ChitChat
 //
@@ -31,6 +31,9 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         locationMgr.startUpdatingLocation()
     }
    
+    func updateTableView() {
+        tableView.reloadData() // you do have an outlet of tableView I assume
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,11 +83,17 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCustomCell", for: indexPath) as! MessgeCustomCell
         let place = messageController.messages[indexPath.row]
         cell.tag = indexPath.row
+      
         cell.messageController = self.messageController
         cell.messageLabel.text = place.message
         cell.likeButton.setTitle("Likes: " + String(place.likes), for: .normal)
+        if messageController.liked.contains(place._id){
+            cell.likeButton.isEnabled = false
+        }
         cell.dislikeButton.setTitle("Dislikes: " + String(place.dislikes), for: .normal)
-        
+         if messageController.disliked.contains(place._id){
+            cell.dislikeButton.isEnabled = false
+        }
         let lat = messageController.findLatitueByRow(index: indexPath.row)
         let long = messageController.findLongitudeByRow(index: indexPath.row)
         if let latitude = Double(lat){
@@ -107,5 +116,6 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         }
     }
 
+    
     
 }
