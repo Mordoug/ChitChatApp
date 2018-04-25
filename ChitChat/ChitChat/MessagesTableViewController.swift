@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MapKit
 class MessagesTableViewController: UITableViewController {
     var messageController : MessageController!
 
@@ -19,10 +19,10 @@ class MessagesTableViewController: UITableViewController {
         super.viewDidLoad()
         let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "MessageCustomCell")
-        tableView.rowHeight = CGFloat(130)
+        tableView.rowHeight = CGFloat(300)
         
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action:  #selector(reload), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action:  #selector(reloadMessages), for: UIControlEvents.valueChanged)
         self.refreshControl = refreshControl
         reloadMessages()
         // Uncomment the following line to preserve selection between presentations
@@ -32,15 +32,17 @@ class MessagesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func reloadMessages() {
+    @objc func reloadMessages() {
         messageController.getMessages { (error: Error?) in
             if let error = error {
                 print(error)
+                print("oH")
                 //TODO: Popup error
-            }else {
-                    self.reload()
-                }
+            } else {
+                print("reload")
+                self.reload()
             }
+        }
     }
     
     @objc func reload() {
@@ -70,9 +72,26 @@ class MessagesTableViewController: UITableViewController {
         let place = messageController.messages[indexPath.row]
         cell.tag = indexPath.row
         cell.messageController = self.messageController
-        cell.MessageLabel.text = place.message
+        cell.messageLabel.text = place.message
+        cell.likeButton.setTitle("Likes: " + String(place.likes), for: .normal)
+        cell.dislikeButton.setTitle("Dislikes: " + String(place.dislikes), for: .normal)
+        
+        let lat = messageController.findLatitueByRow(index: indexPath.row)
+        let long = messageController.findLongitudeByRow(index: indexPath.row)
+        if let latitude = Double(lat){
+            if let longitude =  Double(long){
+                let annotation = MKPointAnnotation()
+                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                annotation.coordinate = (coord)
+                cell.mapView.addAnnotation(annotation)
+                cell.mapView.centerCoordinate = coord
+            }
+        }
+        
         return cell
     }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PostMessage" {
             if let destination = segue.destination as? PostMessagePopupViewController {
@@ -80,12 +99,6 @@ class MessagesTableViewController: UITableViewController {
             }
         }
     }
-    
-    
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//
-//
-//    }
 
+    
 }

@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import MapKit
 
 class MessgeCustomCell: UITableViewCell {
     var messageController : MessageController!
     
-    @IBOutlet weak var MessageLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
     
-    @IBOutlet weak var DislikeButton: UIButton!
-    @IBOutlet weak var LikeButton: UIButton!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var dislikeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
 
     @IBAction func likeMessage(_ sender: Any) {
         let messageID = messageController.findMessageIDByRow(index: self.tag)
@@ -25,6 +27,7 @@ class MessgeCustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
         
         //MessageLabel.adjustsFontForContentSizeCategory = true
        //MessageLabel.adjustsFontSizeToFitWidth = false

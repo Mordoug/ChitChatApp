@@ -50,9 +50,9 @@ class MessageController{
         let urlString = String(format: "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu&message=" + message)
         var escapedUrl = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
         guard let endpointUrl = URL(string: escapedUrl!) else { return }
-        print("url")
+        
         do {
-            print("in the do")
+           
             var request = URLRequest(url: endpointUrl)
             request.httpMethod = "POST"
             
@@ -60,14 +60,10 @@ class MessageController{
             
             task.resume()
 
-        }catch {
-            DispatchQueue.main.async {
-                //callBack(error)
-                print("caught: \(error)")
-            }
         }
-        
     }
+        
+    
     
     
     func likeMessage(messageID: String) {
@@ -85,7 +81,7 @@ class MessageController{
                     print("Error Handle Here")
                 }
             } catch {
-                print("OHNO")
+                
                 print(error) //TODO Handle
             }
         }
@@ -118,5 +114,10 @@ class MessageController{
     func findMessageIDByRow(index: Int) -> String {
         return messages[index]._id
     }
-    
+    func findLatitueByRow(index: Int) -> String {
+        return messages[index].loc[1]
+    }
+    func findLongitudeByRow(index: Int) -> String {
+        return messages[index].loc[0]
+    }
 }
