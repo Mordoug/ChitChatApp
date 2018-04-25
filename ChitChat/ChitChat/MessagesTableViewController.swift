@@ -11,6 +11,10 @@ import UIKit
 class MessagesTableViewController: UITableViewController {
     var messageController : MessageController!
 
+    @IBAction func postMessage(_ sender: UIBarButtonItem) {
+        
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
@@ -32,21 +36,14 @@ class MessagesTableViewController: UITableViewController {
         messageController.getMessages { (error: Error?) in
             if let error = error {
                 print(error)
-                
                 //TODO: Popup error
-                
             }else {
-                
                     self.reload()
                 }
-                
             }
-            
-        
     }
     
     @objc func reload() {
-        
         tableView.reloadData()
         refreshControl?.endRefreshing()
     }
@@ -66,15 +63,29 @@ class MessagesTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return messageController.messages.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCustomCell", for: indexPath) as! MessgeCustomCell
         let place = messageController.messages[indexPath.row]
+        cell.tag = indexPath.row
+        cell.messageController = self.messageController
         cell.MessageLabel.text = place.message
         return cell
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PostMessage" {
+            if let destination = segue.destination as? PostMessagePopupViewController {
+                destination.messageController = self.messageController
+            }
+        }
+    }
     
-
+    
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//
+//
+//    }
 
 }

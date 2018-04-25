@@ -34,6 +34,10 @@
                         <rect key="frame" x="255" y="85" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Like"/>
+                        <connections>
+                            <action selector="likeMessage:" destination="5DS-AY-I5W" eventType="touchUpInside" id="7gg-bJ-zDd"/>
+                            <action selector="likeMessageButton:" destination="5DS-AY-I5W" eventType="touchUpInside" id="r7t-aB-F6X"/>
+                        </connections>
                     </button>
                 </subviews>
             </tableViewCellContentView>

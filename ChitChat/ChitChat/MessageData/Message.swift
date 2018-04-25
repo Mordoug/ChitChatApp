@@ -62,6 +62,7 @@ class Message : Decodable {
                 catch{self.loc =  ["0","0"]}
         self.message = try container.decode(String.self, forKey: .message)
     }
+
     
     private enum CodingKeys: String, CodingKey {
         case _id
