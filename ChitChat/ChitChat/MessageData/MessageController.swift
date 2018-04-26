@@ -175,6 +175,7 @@ class MessageController{
         UserDefaults.standard.set(encodedData, forKey: "disliked")
         UserDefaults.standard.synchronize()
     }
+    
     func loadUserData() {
         if UserDefaults.standard.object(forKey: "liked") != nil {
             let decoded = UserDefaults.standard.object(forKey: "liked") as! Data

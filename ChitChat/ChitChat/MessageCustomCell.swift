@@ -21,7 +21,6 @@ class MessgeCustomCell: UITableViewCell {
     @IBOutlet weak var dislikeButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     
-
     @IBAction func likeMessage(_ sender: Any) {
         let messageID = messageController.findMessageIDByRow(index: self.tag)
         messageController.liked.append(messageID)
@@ -36,7 +35,6 @@ class MessgeCustomCell: UITableViewCell {
         let messageID = messageController.findMessageIDByRow(index: self.tag)
         messageController.dislikeMessage(messageID: messageID)
         messageController.disliked.append(messageID)
-        
         var numdislikes = messageController.findDislikesByRow(index: self.tag)
         numdislikes += 1
         dislikeButton.setTitle("Dislikes: " + String(numdislikes), for: .normal)

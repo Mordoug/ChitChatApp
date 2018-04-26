@@ -64,10 +64,12 @@
                                         <constraint firstItem="I2f-cc-g7p" firstAttribute="top" secondItem="sDV-qA-RSR" secondAttribute="bottom" constant="21.5" id="uKt-cn-ku0"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="dislikeButton" destination="hbO-BH-lcc" id="hej-K4-ugt"/>
                                     <outlet property="likeButton" destination="iIq-Nm-5pd" id="mit-8a-9VY"/>
                                     <outlet property="messageLabel" destination="sDV-qA-RSR" id="9JA-Sl-9ek"/>
+                                    <outletCollection property="gestureRecognizers" destination="Pue-S3-xQD" appends="YES" id="5c2-1l-tBi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -95,6 +97,13 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZe-3E-6pL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="2ZI-Gc-SFQ" userLabel="Exit" sceneMemberID="exit"/>
+                <swipeGestureRecognizer direction="left" id="A4V-GF-blj"/>
+                <swipeGestureRecognizer direction="right" id="Pue-S3-xQD">
+                    <connections>
+                        <action selector="swipeAction:" destination="2ZI-Gc-SFQ" id="EEw-zS-eH9"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1301.5999999999999" y="-523.088455772114"/>
         </scene>

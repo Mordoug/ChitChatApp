@@ -24,9 +24,10 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(reloadMessages), for: UIControlEvents.valueChanged)
         self.refreshControl = refreshControl
-        
-        
-
+//
+//        var recognizer = UISwipeGestureRecognizer(target: self, action: "didSwipe")
+//        self.tableView.addGestureRecognizer(recognizer)
+	
         reloadMessages()
         
         
@@ -98,6 +99,26 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let like = UIContextualAction(style: .normal, title: "Like"){ (action, view, handler) in
+            let cell = tableView.cellForRow(at: indexPath) as! MessgeCustomCell
+            cell.likeMessage(self)
+        
+        }
+        let configuration = UISwipeActionsConfiguration(actions: [like])
+        return configuration
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let dislike = UIContextualAction(style: .normal, title: "Dislike"){ (action, view, handler) in
+            let cell = tableView.cellForRow(at: indexPath) as! MessgeCustomCell
+            cell.dislikeMessage(self)
+            
+        }
+        let configuration = UISwipeActionsConfiguration(actions: [dislike])
+        return configuration
+    }
+    
     @IBAction func openPostPopUp(_ sender: UIBarButtonItem) {
         
         sender.isEnabled = false
@@ -125,6 +146,7 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         }
         
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PostMessage" {
             if let destination = segue.destination as? PostMessagePopupViewController {
@@ -132,7 +154,4 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
             }
         }
     }
-
-
-    
 }
