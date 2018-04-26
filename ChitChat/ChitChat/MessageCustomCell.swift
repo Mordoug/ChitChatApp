@@ -15,6 +15,7 @@ class MessgeCustomCell: UITableViewCell {
 
     
     
+    @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
     @IBOutlet weak var mapView: MKMapView!

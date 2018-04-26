@@ -43,6 +43,7 @@ class PostMessagePopupViewController: UIViewController {
     
     @IBAction func closePopUp(_ sender: AnyObject) {
         print(sender.text ?? "")
+
         print(String(describing: locationManager.location?.coordinate.latitude))
         if CLLocationManager.locationServicesEnabled() {
             let latitude: String = String(Double((locationManager.location?.coordinate.latitude)!))
@@ -51,11 +52,10 @@ class PostMessagePopupViewController: UIViewController {
         } else {
             messageController.postMessage(message: PostTextField.text!)
         }
-      
+
         messagesTableViewController.reloadMessages()
         messagesTableViewController.PostButtonBarItem.isEnabled = true
         self.removeAnimate()
-        self.view.removeFromSuperview()
     }
     
     func showAnimate()
@@ -76,7 +76,7 @@ class PostMessagePopupViewController: UIViewController {
         }, completion:{(finished : Bool)  in
             if (finished)
             {
-                self.view.removeFromSuperview()
+                self.messagesTableViewController.removePostPopUp()
             }
         });
     }

@@ -13,10 +13,13 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
     
     @IBOutlet weak var PostButtonBarItem: UIBarButtonItem!
     
+    var popOverVC: DetailsPopupViewController!
+    var postPopOverVC: PostMessagePopupViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
-//        self.tableView.register(nib, forCellReuseIdentifier: "MessageCustomCell")
+
+        tableView.allowsSelection = true
         tableView.rowHeight = CGFloat(130)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
@@ -33,7 +36,7 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         
         
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -73,6 +76,7 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
       
         cell.messageController = self.messageController
         cell.messageLabel.text = place.message
+        cell.timeStampLabel.text = place.dates
         cell.likeButton.setTitle("Likes: " + String(place.likes), for: .normal)
         if messageController.liked.contains(place._id){
             cell.likeButton.isEnabled = false
@@ -85,17 +89,7 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
          }else {
             cell.dislikeButton.isEnabled = true
         }
-//        let lat = messageController.findLatitueByRow(index: indexPath.row)
-//        let long = messageController.findLongitudeByRow(index: indexPath.row)
-//        if let latitude = Double(lat){
-//            if let longitude =  Double(long){
-//                let annotation = MKPointAnnotation()
-//                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//                annotation.coordinate = (coord)
-//                cell.mapView.addAnnotation(annotation)
-//                cell.mapView.centerCoordinate = coord
-//            }
-//        }
+        
         return cell
     }
     
@@ -118,18 +112,45 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         let configuration = UISwipeActionsConfiguration(actions: [dislike])
         return configuration
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsPopup") as! DetailsPopupViewController
+        popOverVC.messageController = messageController
+        popOverVC.message = messageController.messages[indexPath.row]
+        popOverVC.messageTableViewController = self
+        popOverVC.row = indexPath.row
+        popOverVC.modalPresentationStyle = .popover
+        popOverVC.definesPresentationContext = true
+        //self.addChildViewController(popOverVC)
+        popOverVC.view.frame = self.view.frame
+//        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParentViewController: self)
+        
+        //self.navigationController?.view.addSubview(popOverVC.view)
+        self.navigationController?.view.addSubview(popOverVC.view)
+        
+    }
+    
+    func removeDetailsPopUp() {
+        popOverVC.view.removeFromSuperview()
+    }
+    
+    func removePostPopUp() {
+        postPopOverVC.view.removeFromSuperview()
+    }
     
     @IBAction func openPostPopUp(_ sender: UIBarButtonItem) {
         
-        sender.isEnabled = false
+        //sender.isEnabled = false
         
-        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postPopUp") as! PostMessagePopupViewController
-        popOverVC.messageController = messageController
-        popOverVC.messagesTableViewController = self
-        self.addChildViewController(popOverVC)
-        popOverVC.view.frame = self.view.frame
-        self.view.addSubview(popOverVC.view)
-        popOverVC.didMove(toParentViewController: self)
+        postPopOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postPopUp") as! PostMessagePopupViewController
+        postPopOverVC.view.frame = self.view.frame
+        postPopOverVC.messageController = messageController
+        postPopOverVC.messagesTableViewController = self
+        self.view.addSubview(postPopOverVC.view)
+        postPopOverVC.didMove(toParentViewController: self)
+        
+        self.navigationController?.view.addSubview(postPopOverVC.view)
     }
     
     @IBAction func loadMessages(_ sender: Any) {

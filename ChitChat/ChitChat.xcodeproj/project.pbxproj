@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A5D349520915C8A009B2133 /* DetailsPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D349420915C8A009B2133 /* DetailsPopupViewController.swift */; };
 		48266389208280A6006A740D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48266388208280A6006A740D /* AppDelegate.swift */; };
 		4826638E208280A6006A740D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4826638C208280A6006A740D /* Main.storyboard */; };
 		48266390208280A6006A740D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4826638F208280A6006A740D /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A5D349420915C8A009B2133 /* DetailsPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPopupViewController.swift; sourceTree = "<group>"; };
 		48266385208280A6006A740D /* ChitChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChitChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48266388208280A6006A740D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4826638D208280A6006A740D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				48266391208280A6006A740D /* LaunchScreen.storyboard */,
 				48266394208280A6006A740D /* Info.plist */,
 				48B4D14C2086732600328448 /* MessageCustomCell.swift */,
+				1A5D349420915C8A009B2133 /* DetailsPopupViewController.swift */,
 			);
 			path = ChitChat;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				TargetAttributes = {
 					48266384208280A6006A740D = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					48266398208280A6006A740D = {
@@ -282,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A5D349520915C8A009B2133 /* DetailsPopupViewController.swift in Sources */,
 				482663B9208285E7006A740D /* Message.swift in Sources */,
 				48B4D14D2086732600328448 /* MessageCustomCell.swift in Sources */,
 				482663B7208285BF006A740D /* MessagesTableViewController.swift in Sources */,
@@ -454,11 +459,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ChitChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = morgan.ChitChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -468,6 +475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ChitChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
