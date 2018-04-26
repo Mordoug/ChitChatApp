@@ -11,11 +11,15 @@ import MapKit
 class MessagesTableViewController: UITableViewController, CLLocationManagerDelegate {
     var messageController : MessageController!
 
+    @IBOutlet weak var PostButtonBarItem: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "MessageCustomCell")
+//        let nib = UINib.init(nibName: "MessageCustomCell", bundle: nil)
+//        self.tableView.register(nib, forCellReuseIdentifier: "MessageCustomCell")
         tableView.rowHeight = CGFloat(130)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(reloadMessages), for: UIControlEvents.valueChanged)
@@ -74,18 +78,31 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
          }else {
             cell.dislikeButton.isEnabled = true
         }
-        let lat = messageController.findLatitueByRow(index: indexPath.row)
-        let long = messageController.findLongitudeByRow(index: indexPath.row)
-        if let latitude = Double(lat){
-            if let longitude =  Double(long){
-                let annotation = MKPointAnnotation()
-                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                annotation.coordinate = (coord)
-                cell.mapView.addAnnotation(annotation)
-                cell.mapView.centerCoordinate = coord
-            }
-        }
+//        let lat = messageController.findLatitueByRow(index: indexPath.row)
+//        let long = messageController.findLongitudeByRow(index: indexPath.row)
+//        if let latitude = Double(lat){
+//            if let longitude =  Double(long){
+//                let annotation = MKPointAnnotation()
+//                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//                annotation.coordinate = (coord)
+//                cell.mapView.addAnnotation(annotation)
+//                cell.mapView.centerCoordinate = coord
+//            }
+//        }
         return cell
+    }
+    
+    @IBAction func openPostPopUp(_ sender: UIBarButtonItem) {
+        
+        sender.isEnabled = false
+        
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postPopUp") as! PostMessagePopupViewController
+        popOverVC.messageController = messageController
+        popOverVC.messagesTableViewController = self
+        self.addChildViewController(popOverVC)
+        popOverVC.view.frame = self.view.frame
+        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParentViewController: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -18,7 +18,6 @@
 		482663BD20828662006A740D /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482663BC20828662006A740D /* MessageController.swift */; };
 		4849D20B20891E4500809894 /* LikeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4849D20A20891E4500809894 /* LikeDecoder.swift */; };
 		48A569B020900C4D00C33891 /* PostMessagePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A569AF20900C4D00C33891 /* PostMessagePopupViewController.swift */; };
-		48B4D14B2086701B00328448 /* MessageCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48B4D14A2086701B00328448 /* MessageCustomCell.xib */; };
 		48B4D14D2086732600328448 /* MessageCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4D14C2086732600328448 /* MessageCustomCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +56,6 @@
 		482663BC20828662006A740D /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
 		4849D20A20891E4500809894 /* LikeDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDecoder.swift; sourceTree = "<group>"; };
 		48A569AF20900C4D00C33891 /* PostMessagePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMessagePopupViewController.swift; sourceTree = "<group>"; };
-		48B4D14A2086701B00328448 /* MessageCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCustomCell.xib; sourceTree = "<group>"; };
 		48B4D14C2086732600328448 /* MessageCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,7 +115,6 @@
 				4826638F208280A6006A740D /* Assets.xcassets */,
 				48266391208280A6006A740D /* LaunchScreen.storyboard */,
 				48266394208280A6006A740D /* Info.plist */,
-				48B4D14A2086701B00328448 /* MessageCustomCell.xib */,
 				48B4D14C2086732600328448 /* MessageCustomCell.swift */,
 			);
 			path = ChitChat;
@@ -260,7 +257,6 @@
 			files = (
 				48266393208280A6006A740D /* LaunchScreen.storyboard in Resources */,
 				48266390208280A6006A740D /* Assets.xcassets in Resources */,
-				48B4D14B2086701B00328448 /* MessageCustomCell.xib in Resources */,
 				4826638E208280A6006A740D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
