@@ -22,13 +22,43 @@ class MessageController{
             if error != nil {
                 print(error!.localizedDescription)
             }
-            
             guard let data = data else { return }
             do {
                 let jsonDecoder = JSONDecoder()
                 let results = try jsonDecoder.decode(Response.self, from: data)
                 DispatchQueue.main.async {
                     self.messages.removeAll()
+                    for result in results.messages {
+                        if let message = result as? Message {  //I know this always succedes, but it wont work without it
+                            self.messages.append(message)
+                        }
+                    }
+                    callBack(nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    callBack(error)
+                    print("caught: \(error)")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func getMoreMessages(callBack: @escaping (_ : Error?) -> () ) {
+        
+        //self.messages = []
+        let urlString = "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu&skip=" + String(messages.count)
+        guard let url = URL(string: urlString) else { return }
+        let task = URLSession.shared.dataTask(with: url) { (data, resp, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+            guard let data = data else { return }
+            do {
+                let jsonDecoder = JSONDecoder()
+                let results = try jsonDecoder.decode(Response.self, from: data)
+                DispatchQueue.main.async {
                     for result in results.messages {
                         if let message = result as? Message {  //I know this always succedes, but it wont work without it
                             self.messages.append(message)
@@ -58,7 +88,18 @@ class MessageController{
             task.resume()
         }
     }
-    
+    func postMessage(message: String, latitude: String, longitude: String) {
+        let urlString = "https://www.stepoutnyc.com/chitchat?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu&message=" + message + "&lat=" + latitude + "&lon=" + longitude
+        let escapedUrl = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
+        guard let endpointUrl = URL(string: escapedUrl!) else { return }
+        
+        do {
+            var request = URLRequest(url: endpointUrl)
+            request.httpMethod = "POST"
+            let task = URLSession.shared.dataTask(with: request)
+            task.resume()
+        }
+    }
     func likeMessage(messageID: String) {
         let urlString = "https://www.stepoutnyc.com/chitchat/like/" + messageID + "?key=d37f5960-8655-40c2-b5fb-9f169da9ad28&client=morgan.seielstad@mymail.champlain.edu"
         guard let url = URL(string: urlString) else { return }

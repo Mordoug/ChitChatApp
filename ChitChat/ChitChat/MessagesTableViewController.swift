@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 class MessagesTableViewController: UITableViewController, CLLocationManagerDelegate {
     var messageController : MessageController!
-
+    
     @IBOutlet weak var PostButtonBarItem: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -24,7 +24,13 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(reloadMessages), for: UIControlEvents.valueChanged)
         self.refreshControl = refreshControl
+        
+        
+
         reloadMessages()
+        
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -105,6 +111,20 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         popOverVC.didMove(toParentViewController: self)
     }
     
+    @IBAction func loadMessages(_ sender: Any) {
+        messageController.getMoreMessages{ (error: Error?) in
+            if let error = error {
+                print(error)
+                print("oH")
+                //TODO: Popup error
+            } else {
+                print("reload")
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            }
+        }
+        
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PostMessage" {
             if let destination = segue.destination as? PostMessagePopupViewController {
@@ -113,6 +133,6 @@ class MessagesTableViewController: UITableViewController, CLLocationManagerDeleg
         }
     }
 
-    
+
     
 }

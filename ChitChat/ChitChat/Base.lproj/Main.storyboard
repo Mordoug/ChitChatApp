@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -76,11 +77,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ChitChat" largeTitleDisplayMode="always" id="e4l-ah-bbr">
-                        <barButtonItem key="rightBarButtonItem" title="Post" id="3uW-YR-v96">
-                            <connections>
-                                <action selector="openPostPopUp:" destination="8SF-x1-NgX" id="l4E-zD-Vmj"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Post" id="3uW-YR-v96">
+                                <connections>
+                                    <action selector="openPostPopUp:" destination="8SF-x1-NgX" id="l4E-zD-Vmj"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Load" id="jNi-vq-7BC">
+                                <connections>
+                                    <action selector="loadMessages:" destination="8SF-x1-NgX" id="WaW-nh-hAB"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="PostButtonBarItem" destination="3uW-YR-v96" id="Zto-ed-8sO"/>

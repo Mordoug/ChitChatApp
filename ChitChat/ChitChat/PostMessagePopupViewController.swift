@@ -7,14 +7,29 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PostMessagePopupViewController: UIViewController {
     var messageController : MessageController!
     var messagesTableViewController: MessagesTableViewController!
-
+    let locationManager = CLLocationManager()
+    
     @IBOutlet weak var PostTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self as? CLLocationManagerDelegate
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
         
         self.view.subviews[0].layer.cornerRadius = 10.0
         self.showAnimate()
@@ -28,7 +43,15 @@ class PostMessagePopupViewController: UIViewController {
     
     @IBAction func closePopUp(_ sender: AnyObject) {
         print(sender.text ?? "")
-        messageController.postMessage(message: PostTextField.text!)
+        print(String(describing: locationManager.location?.coordinate.latitude))
+        if CLLocationManager.locationServicesEnabled() {
+            let latitude: String = String(Double((locationManager.location?.coordinate.latitude)!))
+            let longitude: String = String(Double((locationManager.location?.coordinate.longitude)!))
+            messageController.postMessage(message: PostTextField.text!, latitude: latitude, longitude: longitude)
+        } else {
+            messageController.postMessage(message: PostTextField.text!)
+        }
+      
         messagesTableViewController.reloadMessages()
         messagesTableViewController.PostButtonBarItem.isEnabled = true
         self.removeAnimate()
@@ -58,7 +81,10 @@ class PostMessagePopupViewController: UIViewController {
         });
     }
 
-    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
 
     /*
     // MARK: - Navigation
