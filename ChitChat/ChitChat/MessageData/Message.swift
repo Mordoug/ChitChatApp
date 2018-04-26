@@ -37,19 +37,7 @@ class Message : Decodable {
     var likes: Int = 0
     var loc: [String] = []
     var message: String = ""
-    
-//    init(_id: String, client: String, date: String, dislikes: Int, ip: String, likes: Int,
-//                loc: [String], message: String) {
-//        self._id = _id
-//        self.client = client
-//        self.date = date
-//        self.dislikes = dislikes
-//        self.ip = ip;
-//        self.likes = likes
-//        self.loc = loc
-//        self.message = message
-//    }
-    
+        
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self._id = try container.decode(String.self, forKey: ._id)

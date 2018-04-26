@@ -17,18 +17,12 @@ class DetailsPopupViewController: UIViewController {
     
     var row: Int!
 
-    @IBOutlet weak var ImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var MapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showAnimate()
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         let lat = messageController.findLatitueByRow(index: row)
         let long = messageController.findLongitudeByRow(index: row)
         if let latitude = Double(lat){
@@ -40,8 +34,46 @@ class DetailsPopupViewController: UIViewController {
                 MapView.centerCoordinate = coord
             }
         }
+        
+        let messageArr = messageController.messages[row].message.components(separatedBy: " ")
+        for msg in messageArr {
+            if msg.range(of: ".png") != nil || msg.range(of: ".jpg") != nil {
+                let url = URL(string: msg )
+                //print(messageController.messages[row].message)
+                
+                if let data = try? Data(contentsOf: url!) { //make sure your image in this url does exist, otherwise unwrap in a if let check / catch
+                    print("Here")
+                    imageView.image = UIImage(data: data)
+                }
+                break
+            }
+        }
 
+        
+        showAnimate()
+        
+        // Do any additional setup after loading the view.
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        let lat = messageController.findLatitueByRow(index: row)
+//        let long = messageController.findLongitudeByRow(index: row)
+//        if let latitude = Double(lat){
+//            if let longitude =  Double(long){
+//                let annotation = MKPointAnnotation()
+//                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//                annotation.coordinate = (coord)
+//                MapView.addAnnotation(annotation)
+//                MapView.centerCoordinate = coord
+//            }
+//        }
+//        let url = URL(string: messageController.messages[row].message)
+//        print(messageController.messages[row].message)
+//        if let data = try? Data(contentsOf: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check / catch
+//            print("Here")
+//            imageView.image = UIImage(data: data)
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

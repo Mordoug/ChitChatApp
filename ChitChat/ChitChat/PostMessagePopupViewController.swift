@@ -42,17 +42,15 @@ class PostMessagePopupViewController: UIViewController {
     }
     
     @IBAction func closePopUp(_ sender: AnyObject) {
-        print(sender.text ?? "")
-
-        print(String(describing: locationManager.location?.coordinate.latitude))
-        if CLLocationManager.locationServicesEnabled() {
-            let latitude: String = String(Double((locationManager.location?.coordinate.latitude)!))
-            let longitude: String = String(Double((locationManager.location?.coordinate.longitude)!))
-            messageController.postMessage(message: PostTextField.text!, latitude: latitude, longitude: longitude)
-        } else {
-            messageController.postMessage(message: PostTextField.text!)
+        if PostTextField.text != "" {
+            if CLLocationManager.locationServicesEnabled() {
+                let latitude: String = String(Double((locationManager.location?.coordinate.latitude)!))
+                let longitude: String = String(Double((locationManager.location?.coordinate.longitude)!))
+                messageController.postMessage(message: PostTextField.text!, latitude: latitude, longitude: longitude)
+            } else {
+                messageController.postMessage(message: PostTextField.text!)
+            }
         }
-
         messagesTableViewController.reloadMessages()
         messagesTableViewController.PostButtonBarItem.isEnabled = true
         self.removeAnimate()
