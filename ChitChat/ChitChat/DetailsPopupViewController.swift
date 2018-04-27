@@ -19,9 +19,11 @@ class DetailsPopupViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var MapView: MKMapView!
+    @IBOutlet weak var closeButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var hasImage: Bool = false
         if messageController.messages[row].loc != nil {
             let lat = messageController.findLatitueByRow(index: row)
             let long = messageController.findLongitudeByRow(index: row)
@@ -40,15 +42,19 @@ class DetailsPopupViewController: UIViewController {
         
         let messageArr = messageController.messages[row].message.components(separatedBy: " ")
         for msg in messageArr {
+            print(msg)
             if msg.range(of: ".png") != nil || msg.range(of: ".jpg") != nil {
                 let url = URL(string: msg )
                 //print(messageController.messages[row].message)
                 
                 if let data = try? Data(contentsOf: url!) { //make sure your image in this url does exist, otherwise unwrap in a if let check / catch
-                    print("Here")
                     imageView.image = UIImage(data: data)
+                    hasImage = true
                 }
                 break
+            }
+            if MapView.isHidden && !hasImage  {
+                closeButton.setTitle("No additional info. Press to close.", for: .normal)
             }
         }
 

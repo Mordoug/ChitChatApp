@@ -231,6 +231,7 @@
                     <connections>
                         <outlet property="ImageView" destination="0yo-QC-aZs" id="2ud-ST-VfI"/>
                         <outlet property="MapView" destination="Gf4-z2-FL6" id="2FR-Eg-3HT"/>
+                        <outlet property="closeButton" destination="QrF-w2-Y91" id="qpS-id-cwT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mg5-dA-Rm9" userLabel="First Responder" sceneMemberID="firstResponder"/>
