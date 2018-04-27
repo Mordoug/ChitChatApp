@@ -45,12 +45,6 @@ class MessgeCustomCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
-        
-        //MessageLabel.adjustsFontForContentSizeCategory = true
-       //MessageLabel.adjustsFontSizeToFitWidth = false
-        //MessageLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

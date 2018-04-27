@@ -22,17 +22,20 @@ class DetailsPopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let lat = messageController.findLatitueByRow(index: row)
-        let long = messageController.findLongitudeByRow(index: row)
-        if let latitude = Double(lat){
-            if let longitude =  Double(long){
-                let annotation = MKPointAnnotation()
-                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                annotation.coordinate = (coord)
-                MapView.addAnnotation(annotation)
-                MapView.centerCoordinate = coord
+        if messageController.messages[row].loc != nil {
+            let lat = messageController.findLatitueByRow(index: row)
+            let long = messageController.findLongitudeByRow(index: row)
+            if let latitude = Double(lat!){
+                if let longitude =  Double(long!){
+                    let annotation = MKPointAnnotation()
+                    let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    annotation.coordinate = (coord)
+                    MapView.addAnnotation(annotation)
+                    MapView.centerCoordinate = coord
+                }
             }
+        } else {
+            MapView.isHidden = true
         }
         
         let messageArr = messageController.messages[row].message.components(separatedBy: " ")
@@ -55,26 +58,6 @@ class DetailsPopupViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        let lat = messageController.findLatitueByRow(index: row)
-//        let long = messageController.findLongitudeByRow(index: row)
-//        if let latitude = Double(lat){
-//            if let longitude =  Double(long){
-//                let annotation = MKPointAnnotation()
-//                let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//                annotation.coordinate = (coord)
-//                MapView.addAnnotation(annotation)
-//                MapView.centerCoordinate = coord
-//            }
-//        }
-//        let url = URL(string: messageController.messages[row].message)
-//        print(messageController.messages[row].message)
-//        if let data = try? Data(contentsOf: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check / catch
-//            print("Here")
-//            imageView.image = UIImage(data: data)
-//        }
-//    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -106,16 +89,5 @@ class DetailsPopupViewController: UIViewController {
             }
         });
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

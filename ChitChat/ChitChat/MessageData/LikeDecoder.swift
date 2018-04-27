@@ -26,8 +26,7 @@ class Like : Decodable {
         case id
         case message
     }
-    
-    
+
 }
 
 class Post : Decodable {

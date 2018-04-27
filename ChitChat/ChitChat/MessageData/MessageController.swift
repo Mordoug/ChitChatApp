@@ -151,12 +151,12 @@ class MessageController{
         return messages[index]._id
     }
     
-    func findLatitueByRow(index: Int) -> String {
-        return messages[index].loc[1]
+    func findLatitueByRow(index: Int) -> String? {
+        return messages[index].loc?[1]
     }
     
-    func findLongitudeByRow(index: Int) -> String {
-        return messages[index].loc[0]
+    func findLongitudeByRow(index: Int) -> String? {
+        return messages[index].loc?[0]
     }
     func findLikesByRow(index: Int) -> Int {
         return messages[index].likes

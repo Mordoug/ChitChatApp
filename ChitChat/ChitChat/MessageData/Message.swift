@@ -35,7 +35,7 @@ class Message : Decodable {
     var dislikes: Int = 0
     var ip : String = ""
     var likes: Int = 0
-    var loc: [String] = []
+    var loc: [String]? = []
     var message: String = ""
         
     required init(from decoder: Decoder) throws {
@@ -47,7 +47,7 @@ class Message : Decodable {
         self.ip = try container.decode(String.self, forKey: .ip)
         self.likes = try container.decode(Int.self, forKey: .likes)
         do {self.loc = try container.decode([String].self, forKey: .loc)}  //some messages do not have this so we need a default. 
-                catch{self.loc =  ["0","0"]}
+                catch{self.loc =  nil}
         self.message = try container.decode(String.self, forKey: .message)
     }
 
